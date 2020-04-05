@@ -9,9 +9,9 @@ Vue.component('message-row', {
 Vue.component('messages-list', {
   props: ['messages'],
   template:
-  '<div>' +
+    '<div>' +
         '<message-row v-for="message in messages" :key="message.id" :message="message" />' +
-  '</div>',
+    '</div>',
   created: function() {
     messageApi.get().then(result =>
         result.json().then(data =>
