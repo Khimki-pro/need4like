@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import vadimshokh.need4like.domain.User;
 import vadimshokh.need4like.repo.UserDetailsRepo;
 
+import java.time.LocalDateTime;
+
 @Configuration
 @EnableWebSecurity
 @EnableOAuth2Sso
@@ -26,7 +28,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public PrincipalExtractor principalExtractor(UserDetailsRepo userDetailsRepo) {
         return map -> {
-            return new User();
+            String id = (String) map.get("sub");
+            User user = userDetailsRepo.findById(id).orElseGet(() -> {
+                User newUser = new User();
+
+                newUser.setId(id);
+                newUser.setName((String) map.get("name"));
+                newUser.setEmail((String) map.get("email"));
+                newUser.setGender((String) map.get("gender"));
+                newUser.setLocale((String) map.get("locale"));
+                newUser.setUserpic((String) map.get("picture"));
+
+                return newUser;
+            });
+
+            user.setLastVisit(LocalDateTime.now());
+
+            return userDetailsRepo.save(user);
         };
     }
 }
