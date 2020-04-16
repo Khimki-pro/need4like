@@ -108,7 +108,4 @@ Vue.component('messages-list', {
   }
 });
 
-var app = new Vue({
-  el: '#app',
-  template:
-    });*/
+
