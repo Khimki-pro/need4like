@@ -1,4 +1,13 @@
+import Vue from 'vue'
+import App from 'pages/App.vue'
 
+new Vue({
+    el: '#app',
+    render: a => a(App)
+
+})
+
+/*
 function getIndex(list, id) {
     for (var i=0; i < list.length; i++) {
         if (list[i].id === id) {
@@ -102,22 +111,4 @@ Vue.component('messages-list', {
 var app = new Vue({
   el: '#app',
   template:
-    '<div>' +
-        '<div v-if="!profile">Необходимо авторизоваться через <a href="/login">Google</a></div>' +
-        '<div v-else>' +
-            '<div>{{profile.name}}&nbsp;<a href="/logout">Выйти</a></div>' +
-            '<messages-list :messages="messages"/>' +
-        '</div>' +
-    '</div>',
-  data: {
-    messages: frontendData.messages,
-    profile: frontendData.profile
-  },
-  created: function() {
-//      messageApi.get().then(result =>
-//          result.json().then(data =>
-//              data.forEach(message => this.messages.push(message))
-//          )
-//      )
-    },
-});
+    });*/
