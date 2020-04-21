@@ -3,25 +3,28 @@ package vadimshokh.need4like.controller;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.*;
 import vadimshokh.need4like.domain.Message;
 import vadimshokh.need4like.domain.Views;
+import vadimshokh.need4like.dto.EventType;
+import vadimshokh.need4like.dto.ObjectType;
 import vadimshokh.need4like.repo.MessageRepo;
+import vadimshokh.need4like.util.WsSender;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
+import java.util.function.BiConsumer;
 
 @RestController
 @RequestMapping("message")
 public class MessageController {
     private final MessageRepo messageRepo;
+    private final BiConsumer<EventType, Message> wsSender;
 
     @Autowired
-    public MessageController(MessageRepo messageRepo) {
+    public MessageController(MessageRepo messageRepo, WsSender wsSender) {
         this.messageRepo = messageRepo;
+        this.wsSender = wsSender.getSender(ObjectType.MESSAGE, Views.IdName.class);
     }
 
 
@@ -40,7 +43,10 @@ public class MessageController {
     @PostMapping
     public Message create(@RequestBody Message message) {
         message.setCreationDate(LocalDateTime.now());
-        return messageRepo.save(message);
+        Message updatedMessage = messageRepo.save(message);
+
+        wsSender.accept(EventType.CREATE, updatedMessage);
+        return updatedMessage;
     }
 
     @PutMapping("{id}")
@@ -58,9 +64,9 @@ public class MessageController {
         messageRepo.delete(message);
     }
 
-    @MessageMapping("/changeMessage")
-    @SendTo("/topic/activity")
-    public Message change(Message message) {
-        return messageRepo.save(message);
-    }
+//    @MessageMapping("/changeMessage")
+//    @SendTo("/topic/activity")
+//    public Message change(Message message) {
+//        return messageRepo.save(message);
+//    }
 }
