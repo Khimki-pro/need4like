@@ -56,17 +56,16 @@ public class MessageController {
     ) {
         BeanUtils.copyProperties(message, messageFromDb, "id");
 
-        return messageRepo.save(messageFromDb);
+        Message updatedMessage = messageRepo.save(messageFromDb);
+
+        wsSender.accept(EventType.UPDATE, updatedMessage);
+
+        return updatedMessage;
     }
 
     @DeleteMapping("{id}")
     public void delete(@PathVariable("id") Message message){
         messageRepo.delete(message);
+        wsSender.accept(EventType.REMOVE, message);
     }
-
-//    @MessageMapping("/changeMessage")
-//    @SendTo("/topic/activity")
-//    public Message change(Message message) {
-//        return messageRepo.save(message);
-//    }
 }
