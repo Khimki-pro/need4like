@@ -5,8 +5,7 @@
             :key="message.id"
             :message="message"
             :editMessage="editMessage"
-            :deleteMessage="deleteMessage"
-    />
+        />
     </v-layout>
 </template>
 
@@ -30,13 +29,6 @@
           methods: {
             editMessage(message) {
                 this.message = message
-            },
-            deleteMessage(message) {
-                messagesApi.remove(message.id).then(result => {
-                    if (result.ok) {
-                        this.messages.splice(this.messages.indexOf(message), 1)
-                    }
-                })
             }
           }
     }

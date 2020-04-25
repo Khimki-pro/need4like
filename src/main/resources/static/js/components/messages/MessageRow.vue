@@ -14,6 +14,7 @@
 </template>
 
 <script>
+    import { mapActions } from 'vuex'
     import { mdiDelete } from '@mdi/js'
 
     export default {
@@ -22,13 +23,14 @@
                 delete1: mdiDelete
             }
         },
-        props: ['message', 'editMessage', 'deleteMessage', 'messages'],
+        props: ['message', 'editMessage'],
             methods: {
+                ...mapActions(['removeMessageAction']),
                 edit() {
                     this.editMessage(this.message)
                 },
                 del() {
-                    this.deleteMessage(this.message)
+                    this.removeMessageAction(this.message)
                 }
             }
         }
