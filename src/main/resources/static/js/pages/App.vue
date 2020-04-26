@@ -9,26 +9,17 @@
             </v-btn>
         </v-app-bar>
         <v-content>
-            <v-container v-if="!profile">Необходимо авторизоваться через
-                <a href="/login">Google</a>
-            </v-container>
-            <v-container v-if="profile">
-                <messages-list />
-            </v-container>
+            <router-view></router-view>
         </v-content>
     </v-app>
 </template>
 
 <script>
     import { mapState, mapMutations } from 'vuex'
-    import MessagesList from 'components/messages/MessageList.vue'
     import { addHandler } from 'util/ws'
     import { mdiExitToApp } from '@mdi/js'
 
     export default {
-        components: {
-            MessagesList
-        },
         data() {
             return {
                 logout: mdiExitToApp
