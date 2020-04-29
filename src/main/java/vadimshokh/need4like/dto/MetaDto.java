@@ -1,0 +1,17 @@
+package vadimshokh.need4like.dto;
+
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
+public class MetaDto {
+    private String title;
+    private String description;
+    private String cover;
+
+
+    public MetaDto(String title, String description, String cover) {
+    }
+}

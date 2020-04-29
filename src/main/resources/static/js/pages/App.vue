@@ -2,14 +2,14 @@
     <v-app>
         <v-app-bar app>
             <v-toolbar-title> Need4like&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp </v-toolbar-title>
-            <v-btn flat
+            <v-btn
                    v-if="profile"
                    :disabled="$route.path === '/'"
                    @click="showMessages">
                 Messages
             </v-btn>
             <v-spacer></v-spacer>
-            <v-btn flat
+            <v-btn
                    v-if="profile"
                    :disabled="$route.path === '/profile'"
                    @click="showProfile">
