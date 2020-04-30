@@ -85,7 +85,7 @@ public class Message {
     }
 
     public String getLinkCover() {
-        return linkCover
+        return linkCover;
     }
 
     public void setLinkCover(String linkCover) {

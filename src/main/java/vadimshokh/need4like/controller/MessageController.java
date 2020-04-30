@@ -55,10 +55,10 @@ public class MessageController {
     }
 
     @PostMapping
-    public Message create(@RequestBody Message message) {
+    public Message create(@RequestBody Message message) throws IOException {
         message.setCreationDate(LocalDateTime.now());
+        fillMeta(message);
         Message updatedMessage = messageRepo.save(message);
-
         wsSender.accept(EventType.CREATE, updatedMessage);
         return updatedMessage;
     }
@@ -67,9 +67,9 @@ public class MessageController {
     public Message update(
             @PathVariable("id") Message messageFromDb,
             @RequestBody Message message
-    ) {
+    ) throws IOException {
         BeanUtils.copyProperties(message, messageFromDb, "id");
-
+        fillMeta(messageFromDb);
         Message updatedMessage = messageRepo.save(messageFromDb);
 
         wsSender.accept(EventType.UPDATE, updatedMessage);
@@ -97,11 +97,11 @@ public class MessageController {
             if (matcher.find()) {
                 message.setLinkCover(url);
             } else if (!url.contains("youtu")) {
+                MetaDto meta = getMeta(url);
 
-
-                message.setLinkCover();
-                message.setLinkTitle();
-                message.setLinkDescription();
+                message.setLinkCover(meta.getCover());
+                message.setLinkTitle(meta.getTitle());
+                message.setLinkDescription(meta.getDescription());
             }
         }
     }
