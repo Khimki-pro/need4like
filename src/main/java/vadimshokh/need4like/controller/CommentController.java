@@ -1,5 +1,6 @@
 package vadimshokh.need4like.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vadimshokh.need4like.domain.Comment;
 import vadimshokh.need4like.domain.User;
+import vadimshokh.need4like.domain.Views;
 import vadimshokh.need4like.service.CommentService;
 
 @RestController
@@ -21,6 +23,7 @@ public class CommentController {
     }
 
     @PostMapping
+    @JsonView(Views.FullMessage.class)
     public Comment create(
             @RequestBody Comment comment,
             @AuthenticationPrincipal User user
