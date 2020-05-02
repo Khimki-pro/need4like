@@ -2,7 +2,6 @@ package vadimshokh.need4like.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
-import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -12,7 +11,6 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "usr")
-@Data
 public class User implements Serializable {
     @Id
     @JsonView(Views.IdName.class)

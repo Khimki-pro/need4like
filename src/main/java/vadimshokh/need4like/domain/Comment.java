@@ -1,6 +1,5 @@
 package vadimshokh.need4like.domain;
 
-
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -28,8 +27,4 @@ public class Comment {
     @JoinColumn(name = "user_id", nullable = false, updatable = false)
     @JsonView(Views.FullMessage.class)
     private User author;
-
-    public void setAuthor(User author) {
-        this.author = author;
-    }
 }

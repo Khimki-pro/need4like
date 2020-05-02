@@ -7,7 +7,6 @@ import lombok.Data;
 import vadimshokh.need4like.domain.Views;
 
 @Data
-@AllArgsConstructor
 @JsonView(Views.Id.class)
 public class WsEventDto {
     private ObjectType objectType;

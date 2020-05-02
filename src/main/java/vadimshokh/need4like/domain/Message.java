@@ -28,30 +28,6 @@ public class Message {
     @JsonView(Views.FullMessage.class)
     private LocalDateTime creationDate;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public LocalDateTime getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(LocalDateTime creationDate) {
-        this.creationDate = creationDate;
-    }
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonView(Views.FullMessage.class)
@@ -69,41 +45,4 @@ public class Message {
     private String linkDescription;
     @JsonView(Views.FullMessage.class)
     private String linkCover;
-
-    public String getLink() {
-        return link;
-    }
-
-    public void setLink(String link) {
-        this.link = link;
-    }
-
-    public String getLinkTitle() {
-        return linkTitle;
-    }
-
-    public void setLinkTitle(String linkTitle) {
-        this.linkTitle = linkTitle;
-    }
-
-    public String getLinkDescription() {
-        return linkDescription;
-    }
-
-    public void setLinkDescription(String linkDescription) {
-        this.linkDescription = linkDescription;
-    }
-
-    public String getLinkCover() {
-        return linkCover;
-    }
-
-    public void setLinkCover(String linkCover) {
-        this.linkCover = linkCover;
-    }
-
-    public void setAuthor(User author) {
-        this.author = author;
-    }
-
 }
