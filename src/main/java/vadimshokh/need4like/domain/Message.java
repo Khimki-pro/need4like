@@ -17,6 +17,7 @@ import java.util.List;
 @ToString(of = {"id", "text"})
 @EqualsAndHashCode(of = {"id"})
 @Data
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class)
 public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
