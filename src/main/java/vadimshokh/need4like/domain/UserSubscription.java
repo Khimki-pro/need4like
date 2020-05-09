@@ -1,9 +1,7 @@
 package vadimshokh.need4like.domain;
 
 import com.fasterxml.jackson.annotation.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -13,6 +11,8 @@ import java.io.Serializable;
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 @ToString(of = "id")
 public class UserSubscription implements Serializable {

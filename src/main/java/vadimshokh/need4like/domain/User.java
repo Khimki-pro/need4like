@@ -36,7 +36,8 @@ public class User {
     @JsonView(Views.FullProfile.class)
     @OneToMany(
             mappedBy = "subscriber",
-            orphanRemoval = true
+            orphanRemoval = true,
+            cascade = CascadeType.ALL
     )
     private Set<UserSubscription> subscriptions = new HashSet<>();
 
