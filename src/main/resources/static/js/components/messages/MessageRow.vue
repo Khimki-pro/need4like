@@ -17,8 +17,8 @@
             </v-btn>
         </v-card-actions>
         <comment-list
-            :comments="message.comments"
-            :message-id="message.id"
+                :comments="message.comments"
+                :message-id="message.id"
         ></comment-list>
     </v-card>
 </template>
@@ -39,15 +39,15 @@
         props: ['message', 'editMessage'],
         components: {UserLink, CommentList, Media },
         methods: {
-                ...mapActions(['removeMessageAction']),
-                edit() {
-                    this.editMessage(this.message)
-                },
-                del() {
-                    this.removeMessageAction(this.message)
-                }
+            ...mapActions(['removeMessageAction']),
+            edit() {
+                this.editMessage(this.message)
+            },
+            del() {
+                this.removeMessageAction(this.message)
             }
         }
+    }
 </script>
 
 <style>

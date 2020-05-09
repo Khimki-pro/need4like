@@ -1,7 +1,5 @@
 package vadimshokh.need4like.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import vadimshokh.need4like.domain.Comment;
 import vadimshokh.need4like.domain.User;
 import vadimshokh.need4like.domain.Views;
@@ -9,6 +7,8 @@ import vadimshokh.need4like.dto.EventType;
 import vadimshokh.need4like.dto.ObjectType;
 import vadimshokh.need4like.repo.CommentRepo;
 import vadimshokh.need4like.util.WsSender;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.function.BiConsumer;
 

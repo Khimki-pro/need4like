@@ -2,9 +2,9 @@ package vadimshokh.need4like.dto;
 
 import com.fasterxml.jackson.annotation.JsonRawValue;
 import com.fasterxml.jackson.annotation.JsonView;
+import vadimshokh.need4like.domain.Views;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import vadimshokh.need4like.domain.Views;
 
 @Data
 @AllArgsConstructor

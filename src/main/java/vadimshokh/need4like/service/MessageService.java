@@ -2,18 +2,19 @@ package vadimshokh.need4like.service;
 
 import vadimshokh.need4like.domain.Message;
 import vadimshokh.need4like.domain.User;
+import vadimshokh.need4like.domain.UserSubscription;
 import vadimshokh.need4like.domain.Views;
 import vadimshokh.need4like.dto.EventType;
 import vadimshokh.need4like.dto.MessagePageDto;
 import vadimshokh.need4like.dto.MetaDto;
 import vadimshokh.need4like.dto.ObjectType;
 import vadimshokh.need4like.repo.MessageRepo;
+import vadimshokh.need4like.repo.UserSubscriptionRepo;
 import vadimshokh.need4like.util.WsSender;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,6 +26,7 @@ import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 @Service
 public class MessageService {
@@ -35,12 +37,18 @@ public class MessageService {
     private static Pattern IMG_REGEX = Pattern.compile(IMAGE_PATTERN, Pattern.CASE_INSENSITIVE);
 
     private final MessageRepo messageRepo;
+    private final UserSubscriptionRepo userSubscriptionRepo;
     private final BiConsumer<EventType, Message> wsSender;
 
     @Autowired
-    public MessageService(MessageRepo messageRepo, WsSender wsSender) {
+    public MessageService(
+            MessageRepo messageRepo,
+            UserSubscriptionRepo userSubscriptionRepo,
+            WsSender wsSender
+    ) {
         this.messageRepo = messageRepo;
-        this.wsSender = wsSender.getSender(ObjectType.MESSAGE, Views.IdName.class);
+        this.userSubscriptionRepo = userSubscriptionRepo;
+        this.wsSender = wsSender.getSender(ObjectType.MESSAGE, Views.FullMessage.class);
     }
 
 
@@ -90,10 +98,9 @@ public class MessageService {
         wsSender.accept(EventType.REMOVE, message);
     }
 
-    public Message update(Message messageFromDb, Message message, User user) throws IOException {
-        BeanUtils.copyProperties(message, messageFromDb, "id");
+    public Message update(Message messageFromDb, Message message) throws IOException {
+        messageFromDb.setText(message.getText());
         fillMeta(messageFromDb);
-        messageFromDb.setAuthor(user);
         Message updatedMessage = messageRepo.save(messageFromDb);
 
         wsSender.accept(EventType.UPDATE, updatedMessage);
@@ -112,8 +119,17 @@ public class MessageService {
         return updatedMessage;
     }
 
-    public MessagePageDto findAll(Pageable pageable) {
-        Page<Message> page = messageRepo.findAll(pageable);
+    public MessagePageDto findForUser(Pageable pageable, User user) {
+        List<User> channels = userSubscriptionRepo.findBySubscriber(user)
+                .stream()
+                .filter(UserSubscription::isActive)
+                .map(UserSubscription::getChannel)
+                .collect(Collectors.toList());
+
+        channels.add(user);
+
+        Page<Message> page = messageRepo.findByAuthorIn(channels, pageable);
+
         return new MessagePageDto(
                 page.getContent(),
                 pageable.getPageNumber(),

@@ -3,11 +3,11 @@ package vadimshokh.need4like.util;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.stereotype.Component;
 import vadimshokh.need4like.dto.EventType;
 import vadimshokh.need4like.dto.ObjectType;
 import vadimshokh.need4like.dto.WsEventDto;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.stereotype.Component;
 
 import java.util.function.BiConsumer;
 
@@ -21,7 +21,7 @@ public class WsSender {
         this.mapper = mapper;
     }
 
-    public <T> BiConsumer <EventType, T> getSender(ObjectType objectType, Class view) {
+    public <T> BiConsumer<EventType, T> getSender(ObjectType objectType, Class view) {
         ObjectWriter writer = mapper
                 .setConfig(mapper.getSerializationConfig())
                 .writerWithView(view);
@@ -31,15 +31,14 @@ public class WsSender {
 
             try {
                 value = writer.writeValueAsString(payload);
-            }
-            catch (JsonProcessingException e) {
+            } catch (JsonProcessingException e) {
                 throw new RuntimeException(e);
             }
 
             template.convertAndSend(
                     "/topic/activity",
-                            new WsEventDto(objectType, eventType, value)
-                    );
+                    new WsEventDto(objectType, eventType, value)
+            );
         };
     }
 }

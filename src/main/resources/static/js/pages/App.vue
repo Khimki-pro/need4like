@@ -37,20 +37,20 @@
             }
         },
         computed: mapState(['profile']),
-                methods: {
-                    ...mapMutations([
-                        'addMessageMutation',
-                        'updateMessageMutation',
-                        'removeMessageMutation',
-                        'addCommentMutation'
-                    ]),
-                    showMessages() {
-                        this.$router.push('/')
-                    },
-                    showProfile() {
-                        this.$router.push('/user')
-                    }
-                },
+        methods: {
+            ...mapMutations([
+                'addMessageMutation',
+                'updateMessageMutation',
+                'removeMessageMutation',
+                'addCommentMutation'
+            ]),
+            showMessages() {
+                this.$router.push('/')
+            },
+            showProfile() {
+                this.$router.push('/user')
+            }
+        },
         created() {
             addHandler(data => {
                 if (data.objectType === 'MESSAGE') {
@@ -82,7 +82,7 @@
         },
         beforeMount() {
             if (!this.profile) {
-                        this.$router.replace('/auth')
+                this.$router.replace('/auth')
             }
         }
     }

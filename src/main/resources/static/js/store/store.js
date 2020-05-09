@@ -110,7 +110,7 @@ export default new Vuex.Store({
 
             commit('addMessagePageMutation', data.messages)
             commit('updateTotalPagesMutation', data.totalPages)
-            commit('updateCurrentPageMutation', Math.min(data.currentPage, data.totalPages))
+            commit('updateCurrentPageMutation', Math.min(data.currentPage, data.totalPages - 1))
         }
     }
 })
