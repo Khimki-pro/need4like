@@ -7,7 +7,7 @@
                 >
                     <user-link
                             :user="item.subscriber"
-                            size="24"
+                            size="30"
                     ></user-link>
 
                     <v-btn

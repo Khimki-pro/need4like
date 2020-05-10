@@ -1,7 +1,7 @@
 <template>
     <v-app>
         <v-app-bar app>
-            <v-toolbar-title> Need4like&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp </v-toolbar-title>
+            <v-toolbar-title> Need4Share&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp </v-toolbar-title>
             <v-btn
                    v-if="profile"
                    :disabled="$route.path === '/'"
@@ -20,6 +20,31 @@
             </v-btn>
         </v-app-bar>
         <v-content>
+           <v-card v-if="profile"
+              class="spacing-playground py-1 px-1"
+              color="white"
+              width=auto
+           >
+              <v-card-text>
+                 <router-link
+                     :to="`/user/106167075684989155972`">
+                    <v-avatar>
+                        <img
+                        :src="`https://lh3.googleusercontent.com/a-/AOh14GhcLWtPuBNxlW0CH3sJDfo43X5lVKuvijo0k8hrog`"
+                        :alt="`Вадим Шох`"
+                        >
+                    </v-avatar>
+                    <span> Автор сайта </span>
+                 </router-link>
+                 <span> &nbsp&nbsp&nbspЭто Need4Share, уютный и быстроый онлайн-дневник.
+                 <br>
+                 Просто попробуйте (=^ ◡ ^=) Вам понравится!
+                 <br>
+                 Хорошего дня!
+                 </span>
+              </v-card-text>
+           </v-card>
+
             <router-view></router-view>
         </v-content>
     </v-app>
@@ -29,6 +54,7 @@
     import { mapState, mapMutations } from 'vuex'
     import { addHandler } from 'util/ws'
     import { mdiExitToApp } from '@mdi/js'
+    import UserLink from 'components/UserLink.vue'
 
     export default {
         data() {
@@ -36,6 +62,7 @@
                 logout: mdiExitToApp
             }
         },
+        components: { UserLink },
         computed: mapState(['profile']),
         methods: {
             ...mapMutations([
