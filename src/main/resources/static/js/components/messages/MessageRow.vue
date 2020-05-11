@@ -10,7 +10,7 @@
             </div>
         </v-card-text>
     <media v-if="message.link" :message="message"></media>
-        <v-card-actions>
+        <v-card-actions v-if="profile.id === message.author.id">
             <v-btn @click="edit" small>Edit</v-btn>
             <v-btn icon @click="del" small>
                 <v-icon>{{ delete1 }}</v-icon>
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-    import { mapActions } from 'vuex'
+    import { mapState, mapActions } from 'vuex'
     import Media from 'components/media/Media.vue'
     import CommentList from '../comment/CommentList.vue'
     import UserLink from 'components/UserLink.vue'
@@ -38,6 +38,7 @@
         },
         props: ['message', 'editMessage'],
         components: {UserLink, CommentList, Media },
+        computed: mapState(['profile']),
         methods: {
             ...mapActions(['removeMessageAction']),
             edit() {

@@ -1,6 +1,6 @@
 <template>
     <v-app>
-        <v-app-bar app>
+        <v-app-bar app color="indigo" dark>
             <v-toolbar-title> Need4Share&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp </v-toolbar-title>
             <v-btn
                    v-if="profile"
@@ -36,7 +36,7 @@
                     </v-avatar>
                     <span> Автор сайта </span>
                  </router-link>
-                 <span> &nbsp&nbsp&nbspЭто Need4Share, уютный и быстроый онлайн-дневник.
+                 <span> &nbsp&nbsp&nbspЭто Need4Share, уютный и быстрый онлайн-дневник.
                  <br>
                  Просто попробуйте (=^ ◡ ^=) Вам понравится!
                  <br>
