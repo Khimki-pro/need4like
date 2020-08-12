@@ -57,7 +57,7 @@
 
 <style>
     .image {
-        padding: 40px 40px 30px 40px;
+        padding: 10px 10px 10px 10px;
         background-color:#ffffff;
         background-repeat:repeat;
         background-attachment:fixed;
