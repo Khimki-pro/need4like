@@ -19,34 +19,35 @@
                 <v-icon>{{ logout }}</v-icon>
             </v-btn>
         </v-app-bar>
-        <v-content>
-           <v-card v-if="profile"
-              class="spacing-playground py-1 px-1"
-              color="white"
-              width=auto
-           >
-              <v-card-text>
-                 <router-link
-                     :to="`/user/106167075684989155972`">
-                    <v-avatar>
-                        <img
-                        :src="`https://lh3.googleusercontent.com/a-/AOh14GhcLWtPuBNxlW0CH3sJDfo43X5lVKuvijo0k8hrog`"
-                        :alt="`Вадим Шох`"
-                        >
-                    </v-avatar>
-                    <span> Автор сайта </span>
-                 </router-link>
-                 <span> &nbsp&nbsp&nbspЭто Need4Share, уютный и быстрый онлайн-дневник.
-                 <br>
-                 Просто попробуйте (=^ ◡ ^=) Вам понравится!
-                 <br>
-                 Хорошего дня!
-                 </span>
-              </v-card-text>
-           </v-card>
-
+        <div :style="image" class="image">
+            <v-content>
+            <v-card v-if="profile"
+                class="spacing-playground py-1 px-1"
+                color="#F0F8FF"
+                width=auto
+            >
+                <v-card-text>
+                    <router-link
+                        :to="`/user/106167075684989155972`">
+                        <v-avatar>
+                            <img
+                            :src="`https://lh3.googleusercontent.com/a-/AOh14GhcLWtPuBNxlW0CH3sJDfo43X5lVKuvijo0k8hrog`"
+                            :alt="`Вадим Шох`"
+                            >
+                        </v-avatar>
+                        <span> Автор сайта </span>
+                    </router-link>
+                    <span> &nbsp&nbsp&nbspЭто Need4Share, уютный и быстрый онлайн-дневник.
+                    <br>
+                    Просто попробуйте (=^ ◡ ^=) Вам понравится!
+                    <br>
+                    Хорошего дня!
+                    </span>
+                </v-card-text>
+            </v-card>
             <router-view></router-view>
-        </v-content>
+            </v-content>
+        </div>
     </v-app>
 </template>
 
@@ -59,7 +60,8 @@
     export default {
         data() {
             return {
-                logout: mdiExitToApp
+                logout: mdiExitToApp,
+                image: {backgroundImage: "url(https://i.pinimg.com/originals/db/d8/3c/dbd83c2de27de7d14e9eb04392994e25.jpg)"}
             }
         },
         components: { UserLink },

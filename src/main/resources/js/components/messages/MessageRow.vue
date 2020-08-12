@@ -1,5 +1,6 @@
 <template>
-    <v-card class="my-2">
+    <div :style="image" class="image">
+      <v-card color="#F0F8FF">
         <v-card-text primary-title>
             <user-link
                 :user="message.author"
@@ -9,7 +10,7 @@
                 {{ message.text }}
             </div>
         </v-card-text>
-    <media v-if="message.link" :message="message"></media>
+      <media v-if="message.link" :message="message"></media>
         <v-card-actions v-if="profile.id === message.author.id">
             <v-btn @click="edit" small>Edit</v-btn>
             <v-btn icon @click="del" small>
@@ -20,7 +21,9 @@
                 :comments="message.comments"
                 :message-id="message.id"
         ></comment-list>
-    </v-card>
+      </v-card>
+    </div>
+
 </template>
 
 <script>
@@ -33,7 +36,8 @@
     export default {
         data() {
             return {
-                delete1: mdiDelete
+                delete1: mdiDelete,
+                image: {backgroundImage: "url(https://i.pinimg.com/originals/db/d8/3c/dbd83c2de27de7d14e9eb04392994e25.jpg)"}
             }
         },
         props: ['message', 'editMessage'],
@@ -52,5 +56,11 @@
 </script>
 
 <style>
-
+    .image {
+        padding: 40px 40px 30px 40px;
+        background-color:#ffffff;
+        background-repeat:repeat;
+        background-attachment:fixed;
+        background-position:top left;
+    }
 </style>

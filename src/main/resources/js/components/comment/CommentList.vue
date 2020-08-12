@@ -1,7 +1,7 @@
 <template>
-    <v-list three-line>
+    <v-list three-line  color="#ffffff">
         <v-subheader>
-            Comments
+            Комменты
         </v-subheader>
         <template
             v-for="(item, index) in sortedList"

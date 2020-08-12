@@ -1,11 +1,18 @@
 <template>
     <v-layout row>
+        <v-card>
+
+        </v-card>
         <v-text-field
+            rounded
+            solo
             label="New message"
-            placeholder="Write something"
+            placeholder="Креативить тут"
             v-model="text"
+            background-color="#ffffff"
             @keyup.enter="save"
         />
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
         <v-btn @click="save">
             Save
         </v-btn>
